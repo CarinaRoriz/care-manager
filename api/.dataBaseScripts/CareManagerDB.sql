@@ -9,7 +9,7 @@ CREATE TABLE `tb_idoso` (
   `telefone_idoso` varchar(20) NOT NULL,
   `celulàr_idoso` varchar(20) NOT NULL,
   `email_idoso` varchar(20) NOT NULL,
-  `situacao_idoso` int NOT NULL,
+  `ativo_idoso` bit NOT NULL,
   PRIMARY KEY (`cod_idoso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -24,7 +24,7 @@ CREATE TABLE `tb_usuario` (
   `login_usuario` varchar(50) NOT NULL,
   `senha_usuario` varchar(100) NOT NULL,
   `cod_perfil` int(11) NOT NULL,
-  `situacao_usuario` int NOT NULL,
+  `ativo_usuario` BIT NOT NULL,
   PRIMARY KEY (`cod_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
