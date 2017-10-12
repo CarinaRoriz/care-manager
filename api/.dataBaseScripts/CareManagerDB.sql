@@ -7,9 +7,9 @@ CREATE TABLE `tb_idoso` (
   `rg_idoso` varchar(20) NULL,
   `dataNascimento_idoso` date NOT NULL,
   `telefone_idoso` varchar(20) NOT NULL,
-  `celulàr_idoso` varchar(20) NOT NULL,
+  `celular_idoso` varchar(20) NOT NULL,
   `email_idoso` varchar(20) NOT NULL,
-  `ativo_idoso` bit NOT NULL,
+  `ativo_idoso` BOOLEAN NOT NULL,
   PRIMARY KEY (`cod_idoso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -19,12 +19,12 @@ CREATE TABLE `tb_usuario` (
   `cpf_usuario` varchar(20) NULL,
   `rg_usuario` varchar(20) NULL,
   `telefone_usuario` varchar(20) NOT NULL,
-  `celulàr_usuario` varchar(20) NOT NULL,
+  `celular_usuario` varchar(20) NOT NULL,
   `email_usuario` varchar(20) NOT NULL,
   `login_usuario` varchar(50) NOT NULL,
   `senha_usuario` varchar(100) NOT NULL,
   `cod_perfil` int(11) NOT NULL,
-  `ativo_usuario` BIT NOT NULL,
+  `ativo_usuario` BOOLEAN NOT NULL,
   PRIMARY KEY (`cod_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -45,7 +45,7 @@ CREATE TABLE `tb_medicacaoidoso` (
   `cod_medicacaoIdoso` int(11) NOT NULL auto_increment,
   `descricao_medicacaoIdoso` varchar(100) NOT NULL,
   `horario_medicacaoIdoso` TIME NOT NULL,
-  `ativo_medicacaoIdoso` BIT NOT NULL,
+  `ativo_medicacaoIdoso` BOOLEAN NOT NULL,
   `cod_idoso` int(11) NOT NULL,
   PRIMARY KEY (`cod_medicacaoIdoso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

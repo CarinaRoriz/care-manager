@@ -39,6 +39,19 @@ class IdosoController extends BaseController
         }
     }
 
+    function ActionGetThis($codIdoso)
+    {
+        $idosoRepository = new IdosoRepository();
+        $result = $idosoRepository->GetThis($codIdoso);
+        $idoso = new Idoso();
+        $idoso->FillByDB($result);
+
+        if(!$idoso->cod_idoso)
+            throw new Warning("Idoso não encontrado");
+
+        ToWrappedJson($idoso);
+    }
+
     function ActionGetList()
     {
         $idosoRepository = new IdosoRepository();

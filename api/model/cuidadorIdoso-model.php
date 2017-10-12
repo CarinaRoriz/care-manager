@@ -4,6 +4,8 @@ class CuidadorIdoso
     var $cod_cuidadorIdoso;
     var $cod_idoso;
     var $cod_usuario;
+    var $nome_usuario;
+
 
     function FillByObject($obj)
     {
@@ -15,6 +17,9 @@ class CuidadorIdoso
 
         if (property_exists($obj, 'cod_usuario'))
             $this->cod_usuario = $obj->cod_usuario;
+
+        if (property_exists($obj, 'nome_usuario'))
+            $this->nome_usuario = $obj->nome_usuario;
     }
 
     function FillByDB($dbArray)
@@ -27,5 +32,8 @@ class CuidadorIdoso
 
         if (is_array($dbArray) && array_key_exists("cod_usuario", $dbArray))
             $this->cod_usuario = $dbArray['cod_usuario'];
+
+        if (is_array($dbArray) && array_key_exists("nome_usuario", $dbArray))
+            $this->nome_usuario = $dbArray['nome_usuario'];
     }
 }

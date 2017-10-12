@@ -1,0 +1,31 @@
+<div>
+    <h2>Idosos</h2>
+    <hr/>
+    <a class="btn btn-primary" style="margin-bottom: 10px" ng-href="idoso/0">Novo</a>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="row">Código</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th class="col-sm-3 col-md-3"></th>
+        </tr>
+        </thead>
+        <tr ng-repeat="idoso in idosoList">
+            <td scope="row" class="text-center">{{idoso.cod_idoso}}</td>
+            <td>{{idoso.nome_idoso}}</td>
+            <td>{{idoso.telefone_idoso}}</td>
+            <td class="text-center">
+                <a ng-href="idoso/{{idoso.cod_idoso}}" class="btn btn-default">
+                    Editar
+                </a>
+                <a ng-click="ativa(idoso.cod_idoso)" class="btn btn-default" ng-hide="idoso.ativo_idoso">
+                    Ativar
+                </a>
+                <a ng-click="inativa(idoso.cod_idoso)" class="btn btn-default" ng-show="idoso.ativo_idoso">
+                    Inativar
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>

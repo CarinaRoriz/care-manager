@@ -7,7 +7,8 @@ class CuidadorIdosoController extends BaseController
         try {
             switch ($action) {
                 case "list":
-                    $this->ActionGetList();
+                    $codIdoso = isset($_GET['key']) ? $_GET['key'] : null;
+                    $this->ActionGetList($codIdoso);
                     break;
                 case "insert":
                     $data = file_get_contents("php://input");
@@ -31,10 +32,10 @@ class CuidadorIdosoController extends BaseController
         }
     }
 
-    function ActionGetList()
+    function ActionGetList($codIdoso)
     {
         $cuidadorIdosoRepository = new CuidadorIdosoRepository();
-        $result = $cuidadorIdosoRepository->GetList();
+        $result = $cuidadorIdosoRepository->GetListByIdoso($codIdoso);
 
         $listCuidadorIdoso = array();
 
@@ -88,7 +89,7 @@ class CuidadorIdosoController extends BaseController
         $result = $codCuidadorIdosoRepository->Delete($codCuidadorIdoso);
 
         if(!$result)
-            throw new Warning("Falha ao excluir Perfil.");
+            throw new Warning("Falha ao excluir Cuidador.");
 
         ToWrappedJson("{}", "Cuidador excluido com sucesso");
     }

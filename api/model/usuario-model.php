@@ -7,7 +7,7 @@ class Usuario
     var $cpf_usuario;
     var $rg_usuario;
     var $telefone_usuario;
-    var $celulàr_usuario;
+    var $celular_usuario;
     var $email_usuario;
     var $login_usuario;
     var $senha_usuario;
@@ -32,8 +32,8 @@ class Usuario
         if (property_exists($obj, 'telefone_usuario'))
             $this->telefone_usuario = $obj->telefone_usuario;
 
-        if (property_exists($obj, 'celulàr_usuario'))
-            $this->celulàr_usuario = $obj->celulàr_usuario;
+        if (property_exists($obj, 'celular_usuario'))
+            $this->celular_usuario = $obj->celular_usuario;
 
         if (property_exists($obj, 'email_usuario'))
             $this->email_usuario = $obj->email_usuario;
@@ -49,11 +49,11 @@ class Usuario
 
         if (property_exists($obj, 'descricao_perfil')){
             if($obj->descricao_perfil == 1)
-                $this->descricao_perfil = 'Administrativo';
+                $this->descricao_perfil = 'Administrador';
             else if($obj->descricao_perfil == 2)
                 $this->descricao_perfil = 'Cuidador';
             else if($obj->descricao_perfil == 3)
-                $this->descricao_perfil = 'Parente';
+                $this->descricao_perfil = 'Familiar';
         }
 
         if (property_exists($obj, 'ativo_usuario'))
@@ -77,8 +77,8 @@ class Usuario
         if (is_array($dbArray) && array_key_exists("telefone_usuario", $dbArray))
             $this->telefone_usuario = $dbArray['telefone_usuario'];
 
-        if (is_array($dbArray) && array_key_exists("celulàr_usuario", $dbArray))
-            $this->celulàr_usuario = $dbArray['celulàr_usuario'];
+        if (is_array($dbArray) && array_key_exists("celular_usuario", $dbArray))
+            $this->celular_usuario = $dbArray['celular_usuario'];
 
         if (is_array($dbArray) && array_key_exists("email_usuario", $dbArray))
             $this->email_usuario = $dbArray['email_usuario'];
@@ -90,11 +90,11 @@ class Usuario
             $this->cod_perfil = $dbArray['cod_perfil'];
 
             if($this->cod_perfil == 1)
-                $this->descricao_perfil = 'Administrativo';
+                $this->descricao_perfil = 'Administrador';
             else if($this->cod_perfil == 2)
                 $this->descricao_perfil = 'Cuidador';
             else if($this->cod_perfil == 3)
-                $this->descricao_perfil = 'Parente';
+                $this->descricao_perfil = 'Familiar';
         }
 
         if (is_array($dbArray) && array_key_exists("ativo_usuario", $dbArray)){

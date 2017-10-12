@@ -7,15 +7,20 @@ class MedicacaoIdosoController extends BaseController
         try {
             switch ($action) {
                 case "list":
-                    $this->ActionGetList();
+                    $codIdoso = isset($_GET['key']) ? $_GET['key'] : null;
+                    $this->ActionGetList($codIdoso);
                     break;
                 case "insert":
                     $data = file_get_contents("php://input");
                     $this->ActionInsert($data);
                     break;
                 case "inativa":
-                    $codMedicacaoIdoso = isset($_GET['key']) ? $_GET['key'] : null;
-                    $this->ActionInativa($codMedicacaoIdoso);
+                    $inativa = file_get_contents("php://input");
+                    $this->ActionInativa($inativa);
+                    break;
+                case "ativa":
+                    $ativa = file_get_contents("php://input");
+                    $this->ActionAtiva($ativa);
                     break;
                 default:
                     ToErrorJson("Action not found");
@@ -27,16 +32,16 @@ class MedicacaoIdosoController extends BaseController
         }
     }
 
-    function ActionGetList()
+    function ActionGetList($codIdoso)
     {
         $medicacaoIdosoRepository = new MedicacaoIdosoRepository();
-        $result = $medicacaoIdosoRepository->GetList();
+        $result = $medicacaoIdosoRepository->GetListByIdoso($codIdoso);
 
         $listMedicacaoIdoso = array();
 
         foreach($result as $dbMedicacaoIdoso)
         {
-            $modelMedicacaoIdoso = new CuidadorIdoso();
+            $modelMedicacaoIdoso = new MedicacaoIdoso();
             $modelMedicacaoIdoso->FillByDB($dbMedicacaoIdoso);
             $listMedicacaoIdoso[] = $modelMedicacaoIdoso;
         }
@@ -78,12 +83,34 @@ class MedicacaoIdosoController extends BaseController
         ToWrappedJson($medicacaoIdoso, "Dados atualizados com sucesso");
     }
 
-    function ActionInativa($codMedicacaoIdoso)
+    function ActionAtiva($data)
     {
-        $medicacaoIdosoRepository = new MedicacaoIdosoRepository();
-        $medicacaoIdosoRepository->Inativa($codMedicacaoIdoso);
+        $obj = json_decode($data);
 
-        $result = $medicacaoIdosoRepository->GetList();
+        $medicacaoIdosoRepository = new MedicacaoIdosoRepository();
+        $medicacaoIdosoRepository->Ativa($obj->cod_medicacaoIdoso);
+
+        $result = $medicacaoIdosoRepository->GetListByIdoso($obj->cod_idoso);
+
+        $listMedicacaoIdoso = array();
+
+        foreach($result as $dbMedicacaoIdoso)
+        {
+            $modelMedicacaoIdoso = new MedicacaoIdoso();
+            $modelMedicacaoIdoso->FillByDB($dbMedicacaoIdoso);
+            $listMedicacaoIdoso[] = $modelMedicacaoIdoso;
+        }
+        ToWrappedJson($listMedicacaoIdoso, "Medicação ativada com sucesso");
+    }
+
+    function ActionInativa($data)
+    {
+        $obj = json_decode($data);
+
+        $medicacaoIdosoRepository = new MedicacaoIdosoRepository();
+        $medicacaoIdosoRepository->Inativa($obj->cod_medicacaoIdoso);
+
+        $result = $medicacaoIdosoRepository->GetListByIdoso($obj->cod_idoso);
 
         $listMedicacaoIdoso = array();
 

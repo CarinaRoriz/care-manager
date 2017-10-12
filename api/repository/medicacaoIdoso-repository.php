@@ -47,4 +47,16 @@ class MedicacaoIdosoRepository extends BaseRepository
 
         return $stm->rowCount() > 0;
     }
+
+    function Ativa($codMedicacaoIdoso){
+        $conn = $this->db->getConnection();
+
+        $sql = "UPDATE tb_medicacaoIdoso SET ativo_medicacaoIdoso = 1 WHERE cod_medicacaoIdoso= :codMedicacaoIdoso";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindParam(':codMedicacaoIdoso', $codMedicacaoIdoso);
+        $stm->execute();
+
+        return $stm->rowCount() > 0;
+    }
 }

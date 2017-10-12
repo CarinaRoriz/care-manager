@@ -1,0 +1,128 @@
+<div>
+    <h2>{{page}}</h2>
+    <hr/>
+    <div class="col-md-12">
+        <div class="panel-body">
+
+            <form role="form" ng-submit="salvar()">
+                <div class="form-group">
+                    <label class="form-control-label">Código</label>
+                    <input type="text" disabled="" class="form-control" ng-model="idoso.cod_idoso" >
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Nome</label>
+                    <input type="text" class="form-control" ng-model="idoso.nome_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">CPF</label>
+                    <input type="text" class="form-control" ng-model="idoso.cpf_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">RG</label>
+                    <input type="text" class="form-control" ng-model="idoso.rg_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Data Nascimento</label>
+                    <input type="text" class="form-control" ng-model="idoso.dataNascimento_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Telefone</label>
+                    <input type="text" class="form-control"  ng-model="idoso.telefone_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Celular</label>
+                    <input type="text" class="form-control" ng-model="idoso.celular_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Email</label>
+                    <input type="email" class="form-control" ng-model="idoso.email_idoso">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Status</label>
+                    <div class="i-checks">
+                        <input id="rblStatus1" type="radio" checked="" data-ng-value="true" class="radio-template" ng-model="idoso.ativo_idoso" disabled>
+                        <label for="rblStatus1">Ativo</label>
+                    </div>
+                    <div class="i-checks">
+                        <input id="rblStatus2" type="radio" data-ng-value="false" class="radio-template" ng-model="idoso.ativo_idoso" disabled>
+                        <label for="rblStatus2">Inativo</label>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="form-group row">
+                    <div class="col-sm-4 offset-sm-3">
+                        <button type="button" class="btn btn-secondary" ng-click="go('idoso/')">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Cuidadores Vinculados</h3>
+                    <div class="form-group">
+                        <label class="form-control-label">Cuidador</label>
+                        <div class="col-sm-3 col-md-3">
+                            <select class="form-control" ng-model="usuarioSelecionado.codUsuario">
+                                <option value="">Selecione...</option>
+                                <option ng-repeat="usuario in cuidadorList" value="{{usuario.cod_usuario}}">{{usuario.nome_usuario}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <button type="button" class="btn btn-primary" ng-click="vincularCuidador()">Vincular</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="cuidadorIdoso in cuidadorIdosoList">
+                            <td scope="row">{{cuidadorIdoso.nome_usuario}}</td>
+                            <td><a ng-click="removeCuidadorIdoso(cuidadorIdoso.cod_cuidadorIdoso)" class="btn btn-default">Excluir</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>Medicações</h3>
+                    <div class="form-group">
+                        <label class="form-control-label">Descrição</label>
+                        <input type="text" class="form-control" ng-model="medicacaoIdoso.descricao_medicacaoIdoso">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">Horário</label>
+                        <input type="text" class="form-control" ng-model="medicacaoIdoso.horario_medicacaoIdoso">
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <button type="button" class="btn btn-primary" ng-click="adicionarMedicacao()">Adicionar</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Horário</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="medicacao in medicacaoIdosoList">
+                            <td scope="row">{{medicacao.descricao_medicacaoIdoso}}</td>
+                            <td scope="row">{{medicacao.horario_medicacaoIdoso}}</td>
+                            <td>
+                                <a ng-click="ativaMedicacaoIdoso(medicacao.cod_medicacaoIdoso)" class="btn btn-default" ng-hide="medicacao.ativo_medicacaoIdoso">
+                                    Ativar
+                                </a>
+                                <a ng-click="inativaMedicacaoIdoso(medicacao.cod_medicacaoIdoso)" class="btn btn-default" ng-show="medicacao.ativo_medicacaoIdoso">
+                                    Inativar
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

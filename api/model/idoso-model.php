@@ -8,7 +8,7 @@ class Idoso
     var $rg_idoso;
     var $dataNascimento_idoso;
     var $telefone_idoso;
-    var $celulàr_idoso;
+    var $celular_idoso;
     var $email_idoso;
     var $ativo_idoso;
 
@@ -32,8 +32,8 @@ class Idoso
         if (property_exists($obj, 'telefone_idoso'))
             $this->telefone_idoso = $obj->telefone_idoso;
 
-        if (property_exists($obj, 'celulàr_idoso'))
-            $this->celulàr_idoso = $obj->celulàr_idoso;
+        if (property_exists($obj, 'celular_idoso'))
+            $this->celular_idoso = $obj->celular_idoso;
 
         if (property_exists($obj, 'email_idoso'))
             $this->email_idoso = $obj->email_idoso;
@@ -58,7 +58,7 @@ class Idoso
 
         if (is_array($dbArray) && array_key_exists("dataNascimento_idoso", $dbArray)){
             $data = $dbArray['dataNascimento_idoso'];
-            $Dta_Nascimento = DateTime::createFromFormat("Y-m-d H:i:s", $data);
+            $Dta_Nascimento = DateTime::createFromFormat("Y-m-d", $data);
             $Dta_Nascimento = date_format($Dta_Nascimento, "d/m/Y");
 
             $this->dataNascimento_idoso = $Dta_Nascimento;
@@ -67,8 +67,8 @@ class Idoso
         if (is_array($dbArray) && array_key_exists("telefone_idoso", $dbArray))
             $this->telefone_idoso = $dbArray['telefone_idoso'];
 
-        if (is_array($dbArray) && array_key_exists("celulàr_idoso", $dbArray))
-            $this->celulàr_idoso = $dbArray['celulàr_idoso'];
+        if (is_array($dbArray) && array_key_exists("celular_idoso", $dbArray))
+            $this->celular_idoso = $dbArray['celular_idoso'];
 
         if (is_array($dbArray) && array_key_exists("email_idoso", $dbArray))
             $this->email_idoso = $dbArray['email_idoso'];

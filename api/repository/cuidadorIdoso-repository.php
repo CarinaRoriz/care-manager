@@ -6,10 +6,10 @@ class CuidadorIdosoRepository extends BaseRepository
     function GetListByIdoso($codIdoso){
         $conn = $this->db->getConnection();
 
-        $sql = "SELECT cod_cuidadorIdoso, i.nome_idoso, u.nome_usuario FROM tb_cuidadorIdoso ci 
+        $sql = "SELECT cod_cuidadorIdoso, ci.cod_idoso, ci.cod_usuario, i.nome_idoso as nome_idoso, u.nome_usuario FROM tb_cuidadorIdoso ci 
                 LEFT JOIN tb_idoso i ON (i.cod_idoso = ci.cod_idoso) 
-                LEFT JOIN tb_usuario u ON (i.cod_usuario = u.cod_usuario)
-                WHERE cod_idoso = :cod_idoso";
+                LEFT JOIN tb_usuario u ON (ci.cod_usuario = u.cod_usuario)
+                WHERE ci.cod_idoso = :cod_idoso";
 
         $stm = $conn->prepare($sql);
         $stm->bindParam(':cod_idoso', $codIdoso);
@@ -19,10 +19,10 @@ class CuidadorIdosoRepository extends BaseRepository
         return $result;
     }
 
-    function Insert(Idoso &$cuidadorIdoso){
+    function Insert(CuidadorIdoso &$cuidadorIdoso){
         $conn = $this->db->getConnection();
 
-        $sql = "SELECT * FROM tb_cuidadoIdoso WHERE cod_idoso = :cod_idoso and cod_usuario = :cod_usuario";
+        $sql = "SELECT * FROM tb_cuidadorIdoso WHERE cod_idoso = :cod_idoso and cod_usuario = :cod_usuario";
 
         $stm = $conn->prepare($sql);
         $stm->bindParam(':cod_idoso', $cuidadorIdoso->cod_idoso);
@@ -32,14 +32,14 @@ class CuidadorIdosoRepository extends BaseRepository
         if($stm->rowCount() > 0)
             throw  new Warning("Esse cuidador já está vinculado ao idoso!");
 
-        $sqlInsert = 'INSERT INTO tb_idoso (cod_idoso, cod_usuario) VALUES (:cod_idoso, :cod_usuario)';
+        $sqlInsert = 'INSERT INTO tb_cuidadorIdoso (cod_idoso, cod_usuario) VALUES (:cod_idoso, :cod_usuario)';
 
         $stmInsert = $conn->prepare($sqlInsert);
         $stmInsert->bindParam(':cod_idoso', $cuidadorIdoso->cod_idoso);
         $stmInsert->bindParam(':cod_usuario', $cuidadorIdoso->cod_usuario);
         $stmInsert->execute();
 
-        $cuidadorIdoso->codCuidadorIdoso = $conn->lastInsertId();
+        $cuidadorIdoso->cod_cuidadorIdoso = $conn->lastInsertId();
 
         return $stmInsert->rowCount() > 0;
     }

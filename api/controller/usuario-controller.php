@@ -13,6 +13,9 @@ class UsuarioController extends BaseController
                 case "list":
                     $this->ActionGetList();
                     break;
+                case "listCuidador":
+                    $this->ActionGetListCuidador();
+                    break;
                 case "insert":
                     $data = file_get_contents("php://input");
                     $this->ActionInsert($data);
@@ -39,10 +42,40 @@ class UsuarioController extends BaseController
         }
     }
 
+    function ActionGetThis($codUsuario)
+    {
+        $usuarioRepository = new UsuarioRepository();
+        $result = $usuarioRepository->GetThis($codUsuario);
+        $usuario = new Usuario();
+        $usuario->FillByDB($result);
+
+        if(!$usuario->cod_usuario)
+            throw new Warning("Usuário não encontrado");
+
+        ToWrappedJson($usuario);
+    }
+
     function ActionGetList()
     {
         $usuarioRepository = new UsuarioRepository();
         $result = $usuarioRepository->GetList();
+
+        $listUsuario = array();
+
+        foreach($result as $dbUsuario)
+        {
+            $modelUsuario = new Usuario();
+            $modelUsuario->FillByDB($dbUsuario);
+            $listUsuario[] = $modelUsuario;
+        }
+
+        ToWrappedJson($listUsuario);
+    }
+
+    function ActionGetListCuidador()
+    {
+        $usuarioRepository = new UsuarioRepository();
+        $result = $usuarioRepository->GetListCuidador();
 
         $listUsuario = array();
 

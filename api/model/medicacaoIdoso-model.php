@@ -37,10 +37,16 @@ class MedicacaoIdoso
         if (is_array($dbArray) && array_key_exists("horario_medicacaoIdoso", $dbArray))
             $this->horario_medicacaoIdoso = $dbArray['horario_medicacaoIdoso'];
 
-        if (is_array($dbArray) && array_key_exists("ativo_medicacaoIdoso", $dbArray))
-            $this->ativo_medicacaoIdoso = $dbArray['ativo_medicacaoIdoso'];
-
         if (is_array($dbArray) && array_key_exists("cod_idoso", $dbArray))
             $this->cod_idoso = $dbArray['cod_idoso'];
+
+        if (is_array($dbArray) && array_key_exists("ativo_medicacaoIdoso", $dbArray)){
+            $situcao = $dbArray['ativo_medicacaoIdoso'];
+
+            if($situcao == 0)
+                $this->ativo_medicacaoIdoso = false;
+            else
+                $this->ativo_medicacaoIdoso = true;
+        }
     }
 }

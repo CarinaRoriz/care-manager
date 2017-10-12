@@ -30,7 +30,7 @@ if(ENV != 'Dev' && ($controller != 'usuario' || $action != 'login')) {
 
 switch ($controller){
     case "cuidadorIdoso":
-        $cuidadorIdoso = new CuidadorIdosoRepository();
+        $cuidadorIdoso = new CuidadorIdosoController();
         $cuidadorIdoso->ProcessRequest($action);
         break;
     case "idoso":
